@@ -25,7 +25,7 @@ int giveCard(PCARD* give,PCARD* take, int index)
 	else
 		giveCard(&((*give)->next),take,index-1);
 }
-void sorting(PCARD *cardlist)  	
+void sorting(PCARD *cardlist )  	
 //sorting card list
 {
 	PCARD *i,*j,*temp1,temp2;
@@ -151,3 +151,61 @@ PCARD getCard(PCARD card,int index)
 	else
 		getCard(card->next,index-1);
 }
+int score(PCARD cardlist)
+{
+	int checkP=0;
+	int checkGN=0;
+	int checkKU=0;
+	int checkDI=0;
+	int check12GN=0;
+	int red=0;
+	int blue=0;
+	int weed=0;
+	int godori=0;
+	int total=0;
+	PCARD i;
+	if(cardlist==NULL)
+		return 0;
+	for(i=cardlist;i->next != NULL ; i=i->next)
+	{
+		//기본 점수 룰
+		if(i->kind==P1 || i->kind == P2)	checkP++;
+		else if(i->kind==SP)				checkP+=2;
+		else if(i->kind==KU) 				checkKU++;
+		else if( i->kind == DI)				checkDI++;
+		else if( i->kind == GN) 			checkGN++;
+		
+		//비광, 고도리, 홍단,청단,초단
+		if( i->kind == GN && i->month == 12 )
+			check12GN++;
+		else if(i->kind == KU && ( i->month == 2 || i->month == 4 || i->month == 8 ))
+			godori++;
+		else if(i->kind == DI && ( i->month == 1 || i->month == 2 || i->month == 3 ))
+			red++;
+		else if(i->kind == DI && ( i->month == 6 || i->month == 9 || i->month == 10 ))
+			blue++;
+		else if(i->kind == DI && ( i->month == 4 || i->month == 5 || i->month == 7 ))
+			weed++;
+	}
+
+	//점수넣어줌
+	if(checkGN>=3)
+   	{
+		if(checkGN==3&&check12GN==1)
+			total+=2;
+		else
+			total+=checkGN;
+	}
+	if(checkP>=10)	 	total +=checkP-9;
+	if(checkDI>=5) 		total +=checkDI-4;
+	if(checkKU>=5) 		total +=checkKU-4;
+	if(red==3) 			total +=3;
+	if(blue==3) 		total +=3;
+	if(weed==3) 		total +=3;
+	if(godori==3) 		total +=5;
+	return total;
+}
+
+	
+
+

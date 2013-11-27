@@ -1,4 +1,6 @@
 //writing the header file and implement function : 최윤호
+#ifndef _CARD_H_
+#define _CARD_H_
 #include <stdio.h>
 //define card ID
 #define		P1						10				//피
@@ -11,10 +13,10 @@
 
 
 typedef struct card {								//card struct
-	char				name[8];
+	char			name[8];
 	int				month;
 	int				kind;							
-	struct card*		next;
+	struct card*	next;
 }CARD;
 typedef		CARD					*PCARD;
 
@@ -52,4 +54,6 @@ void cardShuffleStart(PLAYER player[],PCARD *board,PCARD* dummy);
 PCARD getCard(PCARD card,int index);
 //get a index-th card without modifying card list
 
+int score(PCARD cardlist);
 
+#endif
