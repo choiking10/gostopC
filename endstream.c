@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include"card.h"
+#include"endstream.h"
 
 int shake(PLAYER players[])                  //흔들기
 {
@@ -165,7 +166,7 @@ int winner(PLAYER players[])
     }
 }
 
-int money_count(score)
+int money_count()
 {
     PLAYER players;
     int money,i,last_score;
